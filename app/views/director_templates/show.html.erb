@@ -8,6 +8,31 @@
 
 <hr>
 
+<form action = "/modify_director_record/<%= @the_director.id %>" method = "post">
+  <label for ="title_field">Title</label>
+  <input id="title_field" type="text" name="the_title" value="<%= @the_director.title %>">
+
+  <label for ="year_field">Year</label>
+  <input id="year_field" type="text" name="the_year" value="<%= @the_director.year %>">
+
+  <label for ="duration_field">Duration</label>
+  <input id="duration_field" type="text" name="the_duration" value="<%= @the_director.duration %>">
+
+
+  <label for ="description">Description</label>
+  <input id="description" type="text" name="the_description" value="<%= @the_director.description %>">
+
+  <label for ="image_field">Image</label>
+  <input id="image_field" type="text" name="the_image" value="<%= @the_director.image %>">
+
+  <label for ="director_id_field">Director ID</label>
+  <input id="director_id_field" type="text" name="the_director_id" value="<%= @the_director.director_id %>">
+
+  <button>
+    Update director
+  </button>
+</form>
+
 <dl>
   <dt>
     Name
