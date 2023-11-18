@@ -139,8 +139,15 @@ end
 describe "/movies/[ID]" do
   it "has at least one form", :points => 1 do
 
+    director = Director.new
+    director.name = "Travis McElroy"
+    director.dob = 38.years.ago
+    director.image = ""
+    director.save
+
     movie = Movie.new
     movie.title = "Flubber"
+    movie.director_id = director.id
     movie.save
 
     visit "/movies/#{movie.id}"
