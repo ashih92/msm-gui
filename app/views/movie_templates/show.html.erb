@@ -2,40 +2,75 @@
   Movie #<%= @the_movie.id %> details
 </h1>
 
-<a href="/movies">
-  Go back
-</a>
+<div>
+  <a href="/movies">
+    Go back
+  </a>
+</div>
 
 <div>
-  <a href="/delete_movie/<%= @the_movie.id %>">Delete movie</a>
+  <a href="/delete_movie/<%= @the_movie.id %>">
+    Delete movie
+  </a>
 </div>
 
 <hr>
 
-<form action = "/modify_movie_record/<%= @the_movie.id %>" method = "post">
-  <label for ="title_field">Title</label>
-  <input id="title_field" type="text" name="the_title" value="<%= @the_movie.title %>">
+<form action="/modify_movie/<%= @the_movie.id %>" method="post">
+  <div>
+    <label for="title_box">
+      Title
+    </label>
 
-  <label for ="year_field">Year</label>
-  <input id="year_field" type="text" name="the_year" value="<%= @the_movie.year %>">
+    <input type="text" id="title_box" name="query_title" value="<%= @the_movie.title %>">
+  </div>
 
-  <label for ="duration_field">Duration</label>
-  <input id="duration_field" type="text" name="the_duration" value="<%= @the_movie.duration %>">
+  <div>
+    <label for="year_box">
+      Year
+    </label>
 
+    <input type="text" id="year_box" name="query_year" value="<%= @the_movie.year %>">
+  </div>
 
-  <label for ="description">Description</label>
-  <input id="description" type="text" name="the_description" value="<%= @the_movie.description %>">
+  <div>
+    <label for="duration_box">
+      Duration
+    </label>
 
-  <label for ="image_field">Image</label>
-  <input id="image_field" type="text" name="the_image" value="<%= @the_movie.image %>">
+    <input type="text" id="duration_box" name="query_duration" value="<%= @the_movie.duration %>">
+  </div>
 
-  <label for ="director_id_field">Director ID</label>
-  <input id="director_id_field" type="text" name="the_director_id" value="<%= @the_movie.director_id %>">
+  <div>
+    <label for="description_box">
+      Description
+    </label>
+
+    <textarea id="description_box" name="query_description" rows="3"><%= @the_movie.description %></textarea>
+  </div>
+
+  <div>
+    <label for="image_box">
+      Image
+    </label>
+
+    <input type="text" id="image_box" name="query_image" value="<%= @the_movie.image %>">
+  </div>
+
+  <div>
+    <label for="director_id_box">
+      Director ID
+    </label>
+
+    <input type="text" id="director_id_box" name="query_director_id" value="<%= @the_movie.director_id %>">
+  </div>
 
   <button>
     Update movie
   </button>
 </form>
+
+<hr>
 
 <dl>
   <dt>
@@ -77,17 +112,16 @@
     Director
   </dt>
   <dd>
-    <% dir_id = @the_movie.director_id %>
-    
-    <% matching_directors = Director.where({ :id => dir_id }) %>
-    
+    <% the_id = @the_movie.director_id %>
+
+    <% matching_directors = Director.where({ :id => the_id }) %>
+        
     <% the_director = matching_directors.at(0) %>
 
-    <% if the_director == nil %>
-      Uh oh! We weren;t able to find a director for this movie.
+    <% if the_director != nil %>
+      <%= the_director.name %>
     <% else %>
-
-     <%= the_director.name %>
+      Uh oh! We weren't able to find a director for this movie.
     <% end %>
   </dd>
 
@@ -95,14 +129,14 @@
     Created at
   </dt>
   <dd>
-    <%= @the_movie.created_at %>
+    <%= time_ago_in_words(@the_movie.created_at) %> ago
   </dd>
 
   <dt>
     Updated at
   </dt>
   <dd>
-    <%= @the_movie.updated_at %>
+    <%= time_ago_in_words(@the_movie.updated_at) %> ago
   </dd>
 </dl>
 
